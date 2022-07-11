@@ -80,6 +80,10 @@ public class stockOutput {
                 return (cost);
         }
 
+        public void printAllInfo(){
+
+        }
+
         /**
          * gets the total profit of portfolio
          * @return stock valuation subtracted by the cost

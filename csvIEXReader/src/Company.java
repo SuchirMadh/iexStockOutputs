@@ -16,11 +16,10 @@ public class Company {
     String costBasis;
     float price;
 
-    float marketValue;
     float dayChange;
     float dayChangePercent;
     float dividendYield;
-    int marketCap;
+    long marketCap;
     float peRatio;
     String allData;
 
@@ -75,7 +74,7 @@ public class Company {
             if (!responseContent.toString().contains("Unknown symbol")) {
                 JSONObject obj = new JSONObject(responseContent.toString());
                 this.peRatio = obj.getFloat("peRatio");
-                this.marketCap = obj.getInt("marketCap");
+                this.marketCap = obj.getLong("marketCap");
                 this.price = obj.getInt("latestPrice");
                 this.dayChange = obj.getFloat("change");
                 this.dayChangePercent = obj.getFloat("changePercent");
@@ -199,6 +198,16 @@ public class Company {
         return "";
 
     }*/
+    public void printInfo(){
+        System.out.println("Company Name:" + getCompanyName() + "\r\n" +
+                "Symbol:" + getTicker() + "\r\n" +
+                "Quantity:" + getQuantity() + "\r\n" +
+                "Latest Price:" + getPrice() + "\r\n" +
+                "Day Change:" + getDayChange() + "\r\n" +
+                "Day Change %:" + getDayChangePercent() + "\r\n" +
+                "Market Value:" + getMarketCap() + "\r\n" +
+                "PE Ratio:" + getPeRatio());
+    }
 
     public String getTicker() {
         return ticker;
@@ -224,6 +233,7 @@ public class Company {
 
     public float getDividendYield() { return dividendYield; }
 
+    public long getMarketCap(){ return marketCap; }
     public float getPeRatio() { return peRatio; }
     public String getAllData(){ return allData; }
 
@@ -235,8 +245,7 @@ public class Company {
         System.out.println(csv.getTotalCost());
         System.out.println(csv.getPortfolioProfits());*/
         Company Cisco = new Company("CSCO","CISCO SYSTEMS INC","150","10000");
-        System.out.println(Cisco.getPeRatio());
-        System.out.println(Cisco.getDayChange());
-        System.out.println(Cisco.getDividendYield());
+        Cisco.printInfo();
+        System.out.println(Cisco.getAllData());
     }
 }
