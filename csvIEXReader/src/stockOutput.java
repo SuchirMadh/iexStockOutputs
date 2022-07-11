@@ -48,7 +48,7 @@ public class stockOutput {
          */
         public void printCompanyInfo(){
                 for(int i = 0; i < Companies.size(); i++){
-                        System.out.println(Companies.get(i).getData());
+                        System.out.println(Companies.get(i).getAllData());
                 }
         }
 
@@ -60,7 +60,7 @@ public class stockOutput {
         public float getTotalStockValue(){
                 float total = 0;
                 for(int i = 1; i < Companies.size(); i++){
-                        float price = Float.parseFloat(Companies.get(i).getCurrentPrice());
+                        float price = Companies.get(i).getPrice();
                         float stockValue = price * Integer.parseInt(Companies.get(i).getQuantity());
                         total =  total + stockValue;
                 }
