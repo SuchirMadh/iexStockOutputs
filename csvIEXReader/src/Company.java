@@ -1,8 +1,6 @@
 import netscape.javascript.JSObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -18,7 +16,7 @@ public class Company {
 
     float dayChange;
     float dayChangePercent;
-    float dividendYield;
+
     long marketCap;
     float peRatio;
     String allData;
@@ -209,6 +207,35 @@ public class Company {
                 "PE Ratio:" + getPeRatio());
     }
 
+    public String commaInfo(){
+        return ("Company Name: " + getCompanyName() + ", " +
+                "Symbol: " + getTicker() + ", " +
+                "Quantity: " + getQuantity() + ", " +
+                "Latest Price: " + getPrice() + ", " +
+                "Day Change: " + getDayChange() + ", " +
+                "Day Change %: " + getDayChangePercent()  + ", " +
+                "Market Value: " + getMarketCap()  +  ", " +
+                "PE Ratio: " + getPeRatio() + "\r\n");
+    }
+
+    public File csvInfo() throws IOException {
+        File csv = new File(System.getProperty("user.dir"), "file.csv");
+        if (!csv.exists()) {
+            csv.createNewFile();
+        }
+        BufferedWriter write = new BufferedWriter(new FileWriter(csv));
+        write.append(" Company Name: " + getCompanyName() + ", " +
+                "Symbol: " + getTicker() + ", " +
+                "Quantity: " + getQuantity() + ", " +
+                "Latest Price: " + getPrice() + ", " +
+                "Day Change: " + getDayChange() + ", " +
+                "Day Change %: " + getDayChangePercent()  + ", " +
+                "Market Value: " + getMarketCap()  +  ", " +
+                "PE Ratio: " + getPeRatio());
+        write.close();
+        return csv;
+    }
+
     public String getTicker() {
         return ticker;
     }
@@ -231,13 +258,11 @@ public class Company {
 
     public float getDayChangePercent() { return dayChangePercent; }
 
-    public float getDividendYield() { return dividendYield; }
-
     public long getMarketCap(){ return marketCap; }
     public float getPeRatio() { return peRatio; }
     public String getAllData(){ return allData; }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         /*stockOutput csv = new stockOutput();
         csv.printCompanyInfo();
         System.out.println(csv.getCompanies().get(1).getCurrentPrice());
@@ -246,6 +271,8 @@ public class Company {
         System.out.println(csv.getPortfolioProfits());*/
         Company Cisco = new Company("CSCO","CISCO SYSTEMS INC","150","10000");
         Cisco.printInfo();
+        Cisco.csvInfo();
         System.out.println(Cisco.getAllData());
+
     }
 }

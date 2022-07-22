@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class stockOutput {
@@ -16,7 +13,10 @@ public class stockOutput {
          * reads csv file for company info, inputs info into array list
          */
         public stockOutput(){
-                String path = "C:\\Users\\14082\\Documents\\programming.csv";
+                StringBuilder sb = new StringBuilder();
+                sb.append(System.getProperty("user.dir"));
+                sb.append("/src/programming.csv");
+                String path = sb.toString();
                 String line;
 
                 try{
@@ -80,8 +80,22 @@ public class stockOutput {
                 return (cost);
         }
 
-        public void printAllInfo(){
+        public File returnCsv() throws IOException {
+                File file = new File(System.getProperty("user.dir"), "file.csv");
+                if (!file.exists()) {
+                        file.createNewFile();
+                }
+                BufferedWriter write = new BufferedWriter(new FileWriter(file));
+                for (int i = 1; i < Companies.size(); i++) {
+                        write.append(Companies.get(i).commaInfo());
+                }
+                write.append("Total Value:" +getTotalStockValue() + ", " +
+                        "Total Cost:" + getTotalCost() +
+                        "Total Profits: " + getPortfolioProfits() + ", " +
+                        "\n");
+                write.close();
 
+                return file;
         }
 
         /**
